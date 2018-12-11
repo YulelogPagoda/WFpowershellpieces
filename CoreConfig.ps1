@@ -3,14 +3,9 @@
 # This is where we open the GPO we're going to be adding the firewall rules into
 $gposession = Open-NetGPO -PolicyStore contoso.com\DNSfirewall
 
-# Here is where we declare the IPs for the management servers or jump servers to connect to the DNS server.
+# Here is where we declare the IPs for the management servers or jump servers to connect to the server.
 $managementIPs = [IPADDRESS] "192.168.178.150","192.168.178.254","192.168.178.8","192.168.178.9"
 
-# Here we declare a list of other DNS servers
-$dnsIPs = [IPADDRESS] "192.168.178.1","192.168.178.8","192.168.178.9"
-
-# Here we make a variable that combines both items
-$manANDdnsIPs = $managementIPs + $dnsIPs
 
 # Turn on all profiles and allow outbound
 Set-NetFirewallProfile -All -Enabled True -DefaultInboundAction Block -DefaultOutboundAction Allow -AllowLocalFirewallRules False -LogMaxSizeKilobytes 32767 -LogAllowed True -LogBlocked True -AllowLocalIPsecRules False -GPOSession $gposession 
