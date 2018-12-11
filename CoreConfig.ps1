@@ -12,6 +12,9 @@ $dnsIPs = [IPADDRESS] "192.168.178.1","192.168.178.8","192.168.178.9"
 # Here we make a variable that combines both items
 $manANDdnsIPs = $managementIPs + $dnsIPs
 
+# Turn on all profiles and allow outbound
+Set-NetFirewallProfile -All -Enabled True -DefaultInboundAction Block -DefaultOutboundAction Allow -AllowLocalFirewallRules False -LogMaxSizeKilobytes 32767 -LogAllowed True -LogBlocked True -AllowLocalIPsecRules False -GPOSession $gposession 
+
 # Core IP services
 New-NetFirewallRule -DisplayName "Core-IPv6-ICMP" -GPOSession $gposession -Protocol 58 -IcmpType 2 -Program System
 New-NetFirewallRule -DisplayName "Core-ICMPv4-Destination Unreachable Fragmentation Needed" -GPOSession $gposession -Protocol 1 -IcmpType 3 -Program System
