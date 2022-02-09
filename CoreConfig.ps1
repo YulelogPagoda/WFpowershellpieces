@@ -1,5 +1,7 @@
 # This is an example of a firewall build for securing a Server
 
+#My Change
+
 # This is where we open the GPO we're going to be adding the firewall rules into
 $gposession = Open-NetGPO -PolicyStore contoso.com\DNSfirewall
 
